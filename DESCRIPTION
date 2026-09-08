@@ -1,0 +1,27 @@
+Package: enum2x2
+Type: Package
+Title: Every 2x2 Table Compatible with a Published Agreement Statistic
+Version: 0.1.0
+Authors@R: person("Elliot", "Tower", email = "elliot@elliottower.ai",
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0000-0001-7004-8884"))
+Description: A study comparing two binary criteria on one population computes
+    its numbers from a 2x2 table, then publishes the numbers and not the table.
+    Given a sample size, both positive marginals and Cohen's kappa as the
+    strings a source printed, this package enumerates every non-negative
+    integer table whose statistics round back to those digits. Rounding is
+    treated as a constraint rather than as noise: a printed figure names a
+    closed interval, and membership is decided by integer cross-multiplication,
+    so there is no tolerance parameter. The result is reported as uniquely
+    identified, set-identified with the span of each cell, infeasible, or
+    insufficiently reported. The interface mirrors 'metafor::conv.2x2()', which
+    reconstructs one table per row by optimization, so the two can be compared
+    directly.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown, metafor
+VignetteBuilder: knitr
+URL: https://github.com/elliottower/enum2x2-r
+BugReports: https://github.com/elliottower/enum2x2-r/issues
+Config/roxygen2/version: 8.1.0

@@ -1,0 +1,44 @@
+# The three failure modes, kept apart.
+#
+# A figure that cannot describe any table is a defect in the call and is
+# signalled. A source that reported too little, or reported figures that do not
+# cohere, is described in the returned object and is not signalled at all. That
+# distinction is why recover2x2 has a status field rather than only a result.
+
+#' Conditions signalled by enum2x2
+#'
+#' `enum2x2_invalid_input` is signalled for a declared figure that cannot
+#' describe any table: a negative count, a marginal above the sample size, a
+#' kappa outside \[-1, 1\], a figure that is not a decimal number, or two
+#' marginals given for one criterion. `enum2x2_undefined_statistic` is signalled
+#' where a quantity does not exist for the table given, such as Cohen's kappa
+#' when expected agreement is exactly one. Both inherit from `enum2x2_error` and
+#' from `error`, so `tryCatch` can select at any level.
+#'
+#' A source whose published figures admit no table signals nothing. It is
+#' reported through the `status` field of [recover2x2()], because that is a
+#' property of the source rather than a defect in the call.
+#'
+#' @return Nothing; these are condition classes, not functions.
+#' @examples
+#' # A marginal above the sample size is a defect in the call.
+#' tryCatch(recover2x2(100, n1i = 101, n2i = 50, kappa = "0.5"),
+#'          enum2x2_invalid_input = conditionMessage)
+#'
+#' # Figures that admit no table are not.
+#' recover2x2(768, n1i = 158, n2i = 466, kappa = "0.95")$status
+#' @name enum2x2-conditions
+NULL
+
+.enum2x2_condition <- function(msg, class) {
+  structure(class = c(class, "enum2x2_error", "error", "condition"),
+            list(message = msg, call = NULL))
+}
+
+stop_invalid_input <- function(msg) {
+  stop(.enum2x2_condition(msg, "enum2x2_invalid_input"))
+}
+
+stop_undefined_statistic <- function(msg) {
+  stop(.enum2x2_condition(msg, "enum2x2_undefined_statistic"))
+}

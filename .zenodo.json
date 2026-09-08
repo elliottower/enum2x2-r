@@ -1,0 +1,34 @@
+{
+  "title": "enum2x2 for R: every 2x2 table compatible with a published agreement statistic",
+  "upload_type": "software",
+  "description": "A study comparing two binary criteria on one population computes its numbers from a 2x2 table, then publishes the numbers and not the table. Given a sample size, both positive marginals and Cohen's kappa as the strings a source printed, this R package enumerates every integer table whose statistics round back to those digits, treating rounding as a constraint rather than as noise. It reports whether the published figures identify one table, several, or none, in exact integer arithmetic with no tolerance parameter and no package dependencies. The interface mirrors metafor::conv.2x2, which reconstructs one table per row by optimization, so the two can be swapped and compared. This is a port of the Python package enum2x2 and is verified against it on 11,296 exported cases.",
+  "creators": [
+    {
+      "name": "Tower, Elliot",
+      "orcid": "0000-0001-7004-8884"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "contingency table",
+    "Cohen's kappa",
+    "agreement",
+    "diagnostic criteria",
+    "meta-research",
+    "reporting",
+    "reproducibility",
+    "R"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/elliottower/enum2x2-r",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/elliottower/enum2x2",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    }
+  ]
+}

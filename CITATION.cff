@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "enum2x2 for R: every 2x2 table compatible with a published agreement statistic"
+authors:
+  - family-names: Tower
+    given-names: Elliot
+    email: elliot@elliottower.ai
+    orcid: "https://orcid.org/0000-0001-7004-8884"
+type: software
+license: MIT
+repository-code: "https://github.com/elliottower/enum2x2-r"
+references:
+  - type: software
+    title: "enum2x2: every 2x2 table compatible with a published agreement statistic"
+    authors:
+      - family-names: Tower
+        given-names: Elliot
+        orcid: "https://orcid.org/0000-0001-7004-8884"
+    repository-code: "https://github.com/elliottower/enum2x2"
+    notes: "The Python implementation this package ports, and the specification it is verified against."

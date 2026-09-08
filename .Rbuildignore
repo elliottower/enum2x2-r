@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.git$
+^\.github$
+^LICENSE\.md$
+^\.zenodo\.json$
+^CITATION\.cff$
+^scripts$
+^\.DS_Store$
