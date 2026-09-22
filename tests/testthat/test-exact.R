@@ -76,7 +76,7 @@ test_that("the fast and the exact path agree wherever both are defined", {
   }
 })
 
-test_that("the product comparison is vectorised and recycles", {
+test_that("the product comparison is vectorized and recycles", {
   a <- c(3, -4, 0, 2^40)
   expect_identical(prod_le(a, 2, 6, 1), c(TRUE, TRUE, TRUE, FALSE))
   expect_identical(prod_le(2, a, 1, 6), c(TRUE, TRUE, TRUE, FALSE))

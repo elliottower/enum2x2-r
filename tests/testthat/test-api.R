@@ -1,7 +1,7 @@
 # The public surface: what a caller touches, and how it fails.
 #
 # A figure that cannot describe any table is a defect in the call and is
-# signalled. A source that reported too little, or reported figures that do not
+# signaled. A source that reported too little, or reported figures that do not
 # cohere, is described in the returned object. Keeping those apart is the whole
 # reason the object has a status, so both directions are asserted here.
 
@@ -79,10 +79,10 @@ test_that("a printed marginal that is not a proportion is refused", {
                "outside \\[0, 1\\] as a proportion")
 })
 
-test_that("a source that reported too little is described, not signalled", {
+test_that("a source that reported too little is described, not signaled", {
   r <- recover2x2(768, n1i = 158, n2i = 466)
   expect_equal(r$status, "insufficient")
-  expect_match(r$reason, "kappa was not reported")
+  expect_match(r$reason, "no closing statistic was reported")
 
   s <- recover2x2(768, n1i = 158, kappa = "0.29")
   expect_equal(s$status, "insufficient")
@@ -93,7 +93,7 @@ test_that("a source that reported too little is described, not signalled", {
 
   # A missing kappa is reported before a missing marginal, because kappa is the
   # figure the enumeration inverts.
-  expect_match(recover2x2(768)$reason, "kappa was not reported")
+  expect_match(recover2x2(768)$reason, "no closing statistic was reported")
 })
 
 test_that("a determined report returns one table and names it", {

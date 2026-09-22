@@ -52,7 +52,7 @@ expected_agreement <- function(p1, p2) {
 #' @param bi Count positive on the first criterion and negative on the second.
 #' @param ci Count negative on the first criterion and positive on the second.
 #' @param di Count negative on both criteria.
-#' @return `kappa2x2`, `agreement2x2` and `asymmetry2x2` are vectorised over
+#' @return `kappa2x2`, `agreement2x2` and `asymmetry2x2` are vectorized over
 #'   their arguments and return a numeric vector; `asymmetry2x2` gives
 #'   `NA_real_` where the criteria never disagree. `exact_kappa` takes one table
 #'   and returns a list with integer-valued `num` and `den` in lowest terms.
@@ -117,7 +117,7 @@ asymmetry2x2 <- function(bi, ci) {
 #' cannot have come from a table with these marginals, which is a more specific
 #' finding than reporting that no table survived.
 #'
-#' Both are vectorised, and both signal `enum2x2_undefined_statistic` where
+#' Both are vectorized, and both signal `enum2x2_undefined_statistic` where
 #' expected agreement is one.
 #'
 #' @param p1,p2 Positive rates of the first and second criterion, in \[0, 1\].

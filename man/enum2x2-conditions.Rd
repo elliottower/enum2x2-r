@@ -2,15 +2,15 @@
 % Please edit documentation in R/conditions.R
 \name{enum2x2-conditions}
 \alias{enum2x2-conditions}
-\title{Conditions signalled by enum2x2}
+\title{Conditions signaled by enum2x2}
 \value{
 Nothing; these are condition classes, not functions.
 }
 \description{
-`enum2x2_invalid_input` is signalled for a declared figure that cannot
+`enum2x2_invalid_input` is signaled for a declared figure that cannot
 describe any table: a negative count, a marginal above the sample size, a
 kappa outside \[-1, 1\], a figure that is not a decimal number, or two
-marginals given for one criterion. `enum2x2_undefined_statistic` is signalled
+marginals given for one criterion. `enum2x2_undefined_statistic` is signaled
 where a quantity does not exist for the table given, such as Cohen's kappa
 when expected agreement is exactly one. Both inherit from `enum2x2_error` and
 from `error`, so `tryCatch` can select at any level.

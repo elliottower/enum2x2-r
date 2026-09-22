@@ -64,7 +64,7 @@ numbers; a numeric `kappa` is refused with that reason.
 The status is one of four. `"unique"` and `"set"` mean the figures admit one
 table or several. `"infeasible"` means they are individually possible but
 jointly admit none, and `reason` names the figure that excluded. Both are
-properties of the source and are reported rather than signalled.
+properties of the source and are reported rather than signaled.
 `"insufficient"` means a required figure was never published, which is a
 different finding from `"infeasible"` and is kept apart from it. A defect in
 the call --- a marginal above `ni`, a kappa outside \[-1, 1\], two marginals
@@ -82,7 +82,7 @@ s <- recover2x2(20306, n1i = 866, n2i = 1603, kappa = "0.22")
 n_tables(s)
 cell_ranges(s)
 
-# Figures that do not cohere are reported, not signalled.
+# Figures that do not cohere are reported, not signaled.
 recover2x2(370, n1i = 165, n2i = 160, kappa = "0.48",
            agreement = "73", agreement.as.percent = TRUE)
 }

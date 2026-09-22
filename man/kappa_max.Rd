@@ -23,7 +23,7 @@ cannot have come from a table with these marginals, which is a more specific
 finding than reporting that no table survived.
 }
 \details{
-Both are vectorised, and both signal `enum2x2_undefined_statistic` where
+Both are vectorized, and both signal `enum2x2_undefined_statistic` where
 expected agreement is one.
 }
 \examples{

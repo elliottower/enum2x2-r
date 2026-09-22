@@ -3,9 +3,9 @@
 #' A study comparing two binary criteria on one population computes its numbers
 #' from a 2x2 table, then publishes the numbers and not the table. The quantity
 #' a reader wants --- how many cases the two criteria classify differently, and
-#' in which direction --- is gone. It is usually still recoverable, because the
-#' same reports print the sample size and both marginal totals, and those pin
-#' the table down.
+#' in which direction --- is gone. It can often be recovered, because the same
+#' reports print the sample size, both marginal totals and a statistic such as
+#' kappa, and together those leave a few integer tables, often just one.
 #'
 #' [recover2x2()] takes one comparison and returns every integer table whose
 #' statistics round back to the digits the source printed. [enum.2x2()] is the
