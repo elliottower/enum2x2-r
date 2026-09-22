@@ -22,9 +22,12 @@ fixture_tables <- function() {
 
 # The two implementations name the marginals differently: the Python package
 # follows the statistic (n_a, p_b), this one follows metafor::conv.2x2 (n1i,
-# p2i). Nothing else in a reason string differs, so a reason is compared after
-# renaming, which keeps the assertion on the whole sentence.
+# p2i). The Python package also accepts closing statistics this port does not,
+# so its list of them is narrowed to kappa. Nothing else in a reason string
+# differs, so a reason is compared after both, which keeps the assertion on the
+# whole sentence.
 python_reason_as_r <- function(x) {
+  x <- sub("one of kappa(, [a-z0-9_]+)+ is needed", "kappa is needed", x)
   x <- gsub("n_a", "n1i", x, fixed = TRUE)
   x <- gsub("n_b", "n2i", x, fixed = TRUE)
   x <- gsub("p_a", "p1i", x, fixed = TRUE)

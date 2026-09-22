@@ -15,8 +15,9 @@ library(enum2x2)
 A study comparing two binary criteria on one population computes its numbers from a
 2x2 table, then publishes the numbers and not the table. The quantity a reader wants
 --- how many cases the two criteria classify differently, and in which direction ---
-is gone. It is usually still recoverable, because the same reports print the sample
-size and both marginal totals, and those pin the table down.
+is gone. It can often be recovered, because the same reports print the sample size,
+both marginal totals and a statistic such as kappa, and together those leave a few
+integer tables, often just one.
 
 This vignette walks three cases: one the published digits determine exactly, one where
 a coefficient of similar size belongs to an entirely different joint classification,
@@ -55,7 +56,7 @@ matrix(c(tab$ai, tab$bi, tab$ci, tab$di), nrow = 2, byrow = TRUE,
        dimnames = list(c("strict +", "strict -"), c("relaxed +", "relaxed -")))
 ```
 
-The two readings never cross-classify. No patient is strict-positive and
+The strict class is nested inside the relaxed one. No patient is strict-positive and
 relaxed-negative, and every one of the patients they disagree on falls the same way:
 
 ```{r delirium-direction}
@@ -78,16 +79,17 @@ None of that is in "kappa = 0.29", and kappa = 0.29 is what the paper printed.
 ## A coefficient of similar size, a different structure
 
 A second comparison from the same corpus: 20,306 cases, the first criterion positive in
-866 and the second in 1,603, published at kappa = 0.22. The coefficient is close to the
-first one. The joint classification is not.
+866 and the second in 1,603. The source prints its table; kappa computed from that table
+is 0.22, and only the kappa and the marginals are used here. The coefficient is close to
+the first one. The joint classification is not.
 
 ```{r cohort}
 cohort <- recover2x2(20306, n1i = 866, n2i = 1603, kappa = "0.22")
 cohort
 ```
 
-Two decimals on a sample this size no longer determine the table, so the answer is a set
-of `r n_tables(cohort)` tables and the report is set-identified rather than unique. The
+Two decimals on a sample this size no longer determine the table, so kappa and the
+marginals leave a set of `r n_tables(cohort)` tables rather than one. The
 span of each cell is what the printed digits leave open:
 
 ```{r cohort-ranges}
@@ -95,7 +97,7 @@ cell_ranges(cohort)
 ```
 
 Every table in the set has substantial counts in both off-diagonal cells, so here the
-two criteria do cross-classify:
+neither class is nested in the other:
 
 ```{r cohort-asymmetry}
 asym <- asymmetry2x2(cohort$tables$bi, cohort$tables$ci)
@@ -121,14 +123,14 @@ data.frame(
                 paste(round(range(asym), 2), collapse = "-")))
 ```
 
-A published kappa near 0.2 to 0.3 is consistent with two criteria that never disagree in
-one direction, and with two criteria whose disagreement is split three to one. The
+A kappa near 0.2 to 0.3 is consistent with two criteria that never disagree in one
+direction, and with two criteria whose disagreement splits roughly seven to three. The
 coefficient does not distinguish them; the recovered table does.
 
 ## A case with no table behind it
 
-A third report: 370 patients, the first criterion positive in 165 and the second in 160,
-published at kappa = 0.48 and 73% agreement.
+A third report: 370 patients, the first criterion positive in 44.6% (165) and the second
+in 43.2% (160), published at kappa = 0.48 and 73% agreement.
 
 ```{r infeasible}
 bad <- recover2x2(370, n1i = 165, n2i = 160, kappa = "0.48",

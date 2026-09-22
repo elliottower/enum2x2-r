@@ -81,7 +81,7 @@ test_that("a marginal of zero or of the whole sample is handled, not special-cas
   expect_setequal(as_key(s$tables), c("23/1/0/0", "23/0/1/0"))
 
   # An exact count of zero is a legitimate marginal, not a defect in the call:
-  # it is reported as admitting no table rather than signalled.
+  # it is reported as admitting no table rather than signaled.
   z <- recover2x2(24, n1i = 0, n2i = 0, kappa = "0.00")
   expect_equal(z$status, "infeasible")
   expect_equal(n_tables(z), 0)

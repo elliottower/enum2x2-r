@@ -3,13 +3,17 @@
 **Every 2x2 table a published summary statistic still allows.**
 
 An R port of the [enum2x2](https://github.com/elliottower/enum2x2) Python package,
-with an interface shaped after `metafor::conv.2x2`.
+with an interface shaped after `metafor::conv.2x2`. It ports the kappa path: a sample
+size, both marginals and a printed kappa, with observed agreement as a further check.
+The Python package also accepts McNemar, phi and other closing statistics, and figures
+read as truncated.
 
 A study comparing two binary criteria on one population computes its numbers from a
 2x2 table, then publishes the numbers and not the table. The quantity a reader wants
 — how many cases the two criteria classify differently, and *in which direction* — is
-gone. It is usually still recoverable, because the same reports print the sample size
-and both marginal totals, and those pin the table down.
+gone. It can often be recovered, because the same reports print the sample size, both
+marginal totals and a statistic such as kappa, and together those leave a few integer
+tables, often just one.
 
 ## The problem, concretely
 
@@ -24,12 +28,13 @@ Here is the table underneath it:
 | **strict +** | 158 | 0 |
 | **strict −** | 308 | 302 |
 
-They never cross-classify. No patient is strict-positive and relaxed-negative; the 308
+The strict class is nested inside the relaxed one. No patient is strict-positive and
+relaxed-negative; the 308
 they differ on all fall the same way, relaxed-positive and strict-negative. One reading
 is simply three times wider than the other. Observed agreement is the highest these two
-marginals permit — kappa = 0.29 *is* the ceiling here, not a shortfall from it.
+marginals permit, so kappa = 0.29 is the highest kappa they allow.
 
-None of that is in "kappa = 0.29", and kappa = 0.29 is all the paper printed.
+None of that is in "60% agreement and kappa = 0.29", which is what the paper printed.
 
 ## Install
 
@@ -65,8 +70,8 @@ s
 #>   11 compatible tables
 #>   ai 320-330, bi 536-546, ci 1273-1283, di 18157-18167
 
-recover2x2(370, n1i = 165, n2i = 160, kappa = "0.48",
-           agreement = "73", agreement.as.percent = TRUE)$reason
+recover2x2(370, p1i = "44.6", p2i = "43.2", marginals.as.percent = TRUE,
+           kappa = "0.48", agreement = "73", agreement.as.percent = TRUE)$reason
 #> [1] "the marginals and kappa admit 1 table(s); adding the published agreement admits none"
 ```
 
@@ -78,7 +83,7 @@ Four statuses, and they are kept apart: `unique`, `set`, `infeasible` (the publi
 figures admit no common table), `insufficient` (a required figure was never published).
 An impossible *call* — a marginal above `ni`, a kappa outside [-1, 1], two marginals
 given for one criterion — signals `enum2x2_invalid_input`. An impossible *source* is
-reported, never signalled. `recover_many` and `enum.2x2` cannot signal, so they carry a
+reported, never signaled. `recover_many` and `enum.2x2` cannot signal, so they carry a
 fifth status, `impossible`, for a row whose figures could not describe any table.
 
 Cell names are `metafor`'s: `ai` positive on both criteria, `bi` positive on the first
@@ -122,7 +127,7 @@ metafor::conv.2x2(ri = phi, ni = ni, n1i = n1i, n2i = n2i, data = dat)
 enum.2x2(kappa = kappa, ni = ni, n1i = n1i, n2i = n2i, data = dat)
 ```
 
-Both take a data frame plus column arguments, both honour `data`, `include`,
+Both take a data frame plus column arguments, both honor `data`, `include`,
 `var.names`, `append` and `replace`, and both append columns named `ai`, `bi`, `ci`,
 `di`. The difference is what goes in them. `conv.2x2` always fills all four.
 `enum.2x2` fills them only where the printed digits determine the table, leaves them
@@ -146,9 +151,8 @@ which is what agreement studies report — and on rounding its documentation is 
 > **This is not guaranteed to reconstruct the actual table exactly**, but should usually
 > yield a close match.
 
-The Python package measures what "close" costs. On 1,200 known tables at N = 2,000,
-9,170 and 20,306 with one statistic printed to two decimals — the sizes real papers
-report at:
+The Python package measures what "close" costs, on 1,200 known tables at N = 2,000,
+9,170 and 20,306 with one statistic printed to two decimals:
 
 | | `conv.2x2` point estimate | `enum2x2` |
 |---|---|---|
@@ -158,8 +162,8 @@ report at:
 | uncertainty reported | none | the range itself |
 
 `conv.2x2` is not broken; it does what it says. But it hands you one table and no
-indication of how far off it is. When the claim is "540 patients were reclassified one
-way," an unstated error of up to 20 patients *is* the claim.
+indication of how far off it is. Where a finding rests on how many patients were
+reclassified in each direction, an unstated error of up to 20 patients can change it.
 
 ## What it will not do
 
@@ -207,7 +211,7 @@ rather than against itself.
 
 ## The study this was built for
 
-The delirium table above, and other published comparisons, are analysed in a manuscript
+The delirium table above, and other published comparisons, are analyzed in a manuscript
 on what a published agreement statistic conceals. That work lives in its own repository,
 with the corpus, the preregistration frozen before the enumeration was run, the results,
 and the sentence each published figure was read from. This package carries only the

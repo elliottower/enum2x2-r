@@ -25,7 +25,7 @@ asymmetry2x2(bi, ci)
 \item{di}{Count negative on both criteria.}
 }
 \value{
-`kappa2x2`, `agreement2x2` and `asymmetry2x2` are vectorised over
+`kappa2x2`, `agreement2x2` and `asymmetry2x2` are vectorized over
   their arguments and return a numeric vector; `asymmetry2x2` gives
   `NA_real_` where the criteria never disagree. `exact_kappa` takes one table
   and returns a list with integer-valued `num` and `den` in lowest terms.

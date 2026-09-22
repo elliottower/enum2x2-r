@@ -125,7 +125,7 @@ IMPOSSIBLE <- "impossible"
 #' The status is one of four. `"unique"` and `"set"` mean the figures admit one
 #' table or several. `"infeasible"` means they are individually possible but
 #' jointly admit none, and `reason` names the figure that excluded. Both are
-#' properties of the source and are reported rather than signalled.
+#' properties of the source and are reported rather than signaled.
 #' `"insufficient"` means a required figure was never published, which is a
 #' different finding from `"infeasible"` and is kept apart from it. A defect in
 #' the call --- a marginal above `ni`, a kappa outside \[-1, 1\], two marginals
@@ -160,7 +160,7 @@ IMPOSSIBLE <- "impossible"
 #' n_tables(s)
 #' cell_ranges(s)
 #'
-#' # Figures that do not cohere are reported, not signalled.
+#' # Figures that do not cohere are reported, not signaled.
 #' recover2x2(370, n1i = 165, n2i = 160, kappa = "0.48",
 #'            agreement = "73", agreement.as.percent = TRUE)
 #' @export
@@ -186,7 +186,8 @@ recover2x2 <- function(ni, n1i = NULL, n2i = NULL, p1i = NULL, p2i = NULL,
     }
   }
   if (is.null(kappa)) {
-    return(.recovery(INSUFFICIENT, ni = ni, reason = "kappa was not reported"))
+    return(.recovery(INSUFFICIENT, ni = ni, reason =
+      "no closing statistic was reported; kappa is needed alongside the marginals"))
   }
   for (side in c("a", "b")) {
     count <- if (side == "a") n1i else n2i
@@ -207,7 +208,7 @@ recover2x2 <- function(ni, n1i = NULL, n2i = NULL, p1i = NULL, p2i = NULL,
   if (!is.null(p1i)) .validate_decimal("p1i", p1i)
   if (!is.null(p2i)) .validate_decimal("p2i", p2i)
   if (.dec_cmp_abs_one(parsed_kappa) > 0L) {
-    stop_invalid_input(sprintf("kappa = %s is outside [-1, 1]", kappa))
+    stop_invalid_input(sprintf("kappa = %s is outside [-1, 1], the values it can take", kappa))
   }
 
   a_counts <- .marginal_counts(ni, n1i, p1i, marginals.as.percent, "a")

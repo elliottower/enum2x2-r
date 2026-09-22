@@ -14,7 +14,7 @@
 # double arithmetic exact here, and what lets this check avoid the package's
 # big-integer layer as well.
 
-# --- exact rationals, vectorised, num over den with den > 0
+# --- exact rationals, vectorized, num over den with den > 0
 
 rat <- function(num, den) {
   k <- max(length(num), length(den))
